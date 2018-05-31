@@ -9,3 +9,5 @@ Need command: telnet and redis-cli
 > * Get redis info/config/slaveinfo and output json format
 > * Create "Dependent Item" by "preprocessing"
 > * Generate graphs and Key indicators trigger
+    
+![Alt text](https://github.com/cuimingkun/zbx_tem_redis/blob/master/graphs.png)
