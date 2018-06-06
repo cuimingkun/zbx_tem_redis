@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-05-30T09:55:13Z</date>
+    <date>2018-06-06T05:39:40Z</date>
     <groups>
         <group>
             <name>redis-group</name>
@@ -466,7 +466,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof rewrite in progress </name>
+                            <name>Aof rewrite in progress (1:yes,0:no)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -515,7 +515,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof rewrite scheduled </name>
+                            <name>Aof rewrite scheduled (1:yes,0:no)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1025,7 +1025,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb bgsave in progress </name>
+                            <name>rdb bgsave in progress</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1871,13 +1871,13 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -1893,13 +1893,13 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -1915,35 +1915,35 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},latest_fork_usec].last()}&gt;100</expression>
+                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},latest_fork_usec].last()}&gt;1000</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} latest fork time is too long !</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
-                            <status>0</status>
+                            <status>1</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -1959,13 +1959,13 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -1979,15 +1979,15 @@
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
-                            <status>0</status>
+                            <status>1</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -2001,22 +2001,22 @@
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
-                            <status>0</status>
+                            <status>1</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                            <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
@@ -2041,13 +2041,13 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description> </description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].last()}&lt;&gt;1</expression>
+                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
