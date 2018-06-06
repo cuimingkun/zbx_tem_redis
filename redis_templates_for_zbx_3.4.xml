@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-06-06T05:39:40Z</date>
+    <date>2018-06-06T08:32:57Z</date>
     <groups>
         <group>
             <name>redis-group</name>
@@ -1906,10 +1906,10 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},aof_rewrite_in_progress].last(#20)}=1</expression>
+                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},aof_rewrite_in_progress].sum(#10)}=10</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>{HOST.NAME} Redis {#REDIS_PORT} AOF rewrite in progress long time (20 times)!</name>
+                            <name>{HOST.NAME} Redis {#REDIS_PORT} AOF rewrite in progress long time !</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
