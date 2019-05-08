@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-06-06T08:32:57Z</date>
+    <date>2019-05-08T10:54:21Z</date>
     <groups>
         <group>
             <name>redis-group</name>
+        </group>
+        <group>
+            <name>Templates</name>
         </group>
     </groups>
     <templates>
@@ -15,6 +18,9 @@
             <groups>
                 <group>
                     <name>redis-group</name>
+                </group>
+                <group>
+                    <name>Templates</name>
                 </group>
             </groups>
             <applications>
@@ -315,7 +321,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof enabled (1:yes,0:no)</name>
+                            <name>Aof enabled (1为yes,0为no)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -364,7 +370,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof last bgrewrite (1:ok,0:no)</name>
+                            <name>Aof last bgrewrite (1为ok,0为no)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -466,7 +472,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof rewrite in progress (1:yes,0:no)</name>
+                            <name>Aof rewrite in progress (AOF重写是否正进行;1是,0否)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -515,7 +521,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof rewrite scheduled (1:yes,0:no)</name>
+                            <name>Aof rewrite scheduled (AOF重写是否被save阻塞,1是,0否)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1025,7 +1031,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb bgsave in progress</name>
+                            <name>rdb bgsave in progress (rdb save是否正进行)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -1871,7 +1877,7 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>最近一次AOF重写操作失败则报警</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -1893,7 +1899,7 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>AOF重写是否被RDB save操作阻塞则进行报警</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -1915,7 +1921,7 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>连续20次检测都在进行aof rewrite则进行通知,可根据监控频率进行调整</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -1937,7 +1943,7 @@
                             <url/>
                             <status>1</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>最近一次fork耗时超1s则进行报警(此值info为微秒,取值是转换为了毫秒)</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -1959,7 +1965,7 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>connected_clients超过配置的maxclients的80%则报警</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -1981,7 +1987,7 @@
                             <url/>
                             <status>1</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>used_memory超过配置的maxmemory的95%则报警</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -1994,16 +2000,16 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio].last()}&gt;2</expression>
+                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio].last()}&gt;2 or {Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio].last()}&lt;0.8</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} mem fragmentation ratio Too high !</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
-                            <status>1</status>
+                            <status>0</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>碎片率超过2则进行报警</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -2041,7 +2047,7 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description/>
+                            <description>最近一次bgsave操作失败则报警</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
@@ -2223,18 +2229,6 @@
                                     <item>
                                         <host>Template App Redis for 3.4 Plus</host>
                                         <key>redis.info.json[{#REDIS_PORT},connected_slaves]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>5</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>EE0000</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.config.json[{#REDIS_PORT},maxclients]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -2736,7 +2730,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Master link status (1:up,0:down)</name>
+                            <name>Master link status (1为up,0为down)</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
