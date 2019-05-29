@@ -1,61 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
-    <version>3.4</version>
-    <date>2019-05-08T10:54:21Z</date>
+    <version>4.2</version>
+    <date>2019-05-28T16:11:42Z</date>
     <groups>
         <group>
-            <name>redis-group</name>
-        </group>
-        <group>
-            <name>Templates</name>
+            <name>Templates/Databases</name>
         </group>
     </groups>
     <templates>
         <template>
-            <template>Template App Redis for 3.4 Plus</template>
-            <name>Template App Redis for 3.4 Plus</name>
+            <template>Template DB Redis</template>
+            <name>Template DB Redis</name>
             <description/>
             <groups>
                 <group>
-                    <name>redis-group</name>
-                </group>
-                <group>
-                    <name>Templates</name>
+                    <name>Templates/Databases</name>
                 </group>
             </groups>
             <applications>
                 <application>
-                    <name>APP.Redis.aof</name>
+                    <name>Redis AOF</name>
                 </application>
                 <application>
-                    <name>APP.Redis.Client</name>
+                    <name>Redis Client</name>
                 </application>
                 <application>
-                    <name>APP.Redis.CPU</name>
+                    <name>Redis CPU</name>
                 </application>
                 <application>
-                    <name>APP.Redis.key</name>
+                    <name>Redis Key</name>
                 </application>
                 <application>
-                    <name>APP.Redis.memory</name>
+                    <name>Redis Memory</name>
                 </application>
                 <application>
-                    <name>APP.Redis.NET</name>
+                    <name>Redis Network</name>
                 </application>
                 <application>
-                    <name>APP.Redis.rdb</name>
+                    <name>Redis RDB</name>
                 </application>
                 <application>
-                    <name>APP.Redis.slave</name>
+                    <name>Redis Slave</name>
                 </application>
                 <application>
-                    <name>APP.Redis.Stats</name>
+                    <name>Redis Stats</name>
                 </application>
             </applications>
             <items/>
             <discovery_rules>
                 <discovery_rule>
-                    <name>Redis Discovery for Port</name>
+                    <name>Redis discovery</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
@@ -94,18 +88,18 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>Redis $1 Port Keyspace Hit ratio %</name>
+                            <name>Redis $1 keyspace hit ratio</name>
                             <type>15</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>keyspace_hit_percent[{#REDIS_PORT}]</key>
+                            <key>keyspace_hit_percent[{#REDIS_PORT},{$REDIS_PW}]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>%</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -113,7 +107,7 @@
                             <snmpv3_authpassphrase/>
                             <snmpv3_privprotocol>0</snmpv3_privprotocol>
                             <snmpv3_privpassphrase/>
-                            <params>100*last(&quot;redis.info.json[{#REDIS_PORT},keyspace_hits]&quot;)/(last(&quot;redis.info.json[{#REDIS_PORT},keyspace_hits]&quot;)+last(&quot;redis.info.json[{#REDIS_PORT},keyspace_misses]&quot;))</params>
+                            <params>100*last(&quot;redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_hits]&quot;)/(last(&quot;redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_hits]&quot;)+last(&quot;redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_misses]&quot;))</params>
                             <ipmi_sensor/>
                             <authtype>0</authtype>
                             <username/>
@@ -125,27 +119,45 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.key</name>
+                                    <name>Redis Key</name>
                                 </application>
                             </applications>
                             <valuemap/>
                             <logtimefmt/>
                             <preprocessing/>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype/>
+                            <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Maxclients</name>
+                            <name>Max clients</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.config.json[{#REDIS_PORT},maxclients]</key>
+                            <key>redis.config.json[{#REDIS_PORT},{$REDIS_PW},maxclients]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -167,7 +179,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Client</name>
+                                    <name>Redis Client</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -176,27 +188,47 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_config.maxclients</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.config.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.config.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Maxmemory</name>
+                            <name>Max memory</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.config.json[{#REDIS_PORT},maxmemory]</key>
+                            <key>redis.config.json[{#REDIS_PORT},{$REDIS_PW},maxmemory]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>B</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -216,7 +248,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.memory</name>
+                                    <name>Redis Memory</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -225,20 +257,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_config.maxmemory</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.config.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.config.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>JSON Get config [ $1 ]</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.config.json[{#REDIS_PORT}]</key>
+                            <key>redis.config.json[{#REDIS_PORT},{$REDIS_PW}]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>0</trends>
@@ -268,22 +320,40 @@
                             <logtimefmt/>
                             <preprocessing/>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype/>
+                            <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof current rewrite time</name>
+                            <name>AOF current rewrite time</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},aof_current_rewrite_time_sec]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_current_rewrite_time_sec]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -303,7 +373,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.aof</name>
+                                    <name>Redis AOF</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -312,20 +382,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.aof_current_rewrite_time_sec</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof enabled (1为yes,0为no)</name>
+                            <name>AOF enabled</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},aof_enabled]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_enabled]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -352,29 +442,51 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.aof</name>
+                                    <name>Redis AOF</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.aof_enabled</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof last bgrewrite (1为ok,0为no)</name>
+                            <name>AOF last bgrewrite</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},aof_last_bgrewrite_status]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_last_bgrewrite_status]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -401,40 +513,64 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.aof</name>
+                                    <name>Redis AOF</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.aof_last_bgrewrite_status</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof last rewrite time</name>
+                            <name>AOF last rewrite time</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},aof_last_rewrite_time_sec]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_last_rewrite_time_sec]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -454,7 +590,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.aof</name>
+                                    <name>Redis AOF</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -463,20 +599,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.aof_last_rewrite_time_sec</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof rewrite in progress (AOF重写是否正进行;1是,0否)</name>
+                            <name>AOF rewrite in progress</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},aof_rewrite_in_progress]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_rewrite_in_progress]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -503,29 +659,51 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.aof</name>
+                                    <name>Redis AOF</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.aof_rewrite_in_progress</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Aof rewrite scheduled (AOF重写是否被save阻塞,1是,0否)</name>
+                            <name>AOF rewrite scheduled</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},aof_rewrite_scheduled]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_rewrite_scheduled]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -552,34 +730,56 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.aof</name>
+                                    <name>Redis AOF</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.aof_rewrite_scheduled</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Blocked Clients</name>
+                            <name>Blocked clients</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},blocked_clients]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},blocked_clients]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -601,7 +801,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Client</name>
+                                    <name>Redis Client</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -610,25 +810,45 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.blocked_clients</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Connected Clients</name>
+                            <name>Connected clients</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},connected_clients]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},connected_clients]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -650,7 +870,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Client</name>
+                                    <name>Redis Client</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -659,25 +879,45 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.connected_clients</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Connected slaves</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},connected_slaves]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},connected_slaves]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -699,7 +939,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Client</name>
+                                    <name>Redis Client</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -708,27 +948,47 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.connected_slaves</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Evicted keys rate</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},evicted_keys]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},evicted_keys]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>/s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -748,7 +1008,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.key</name>
+                                    <name>Redis Key</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -757,31 +1017,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.evicted_keys</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Expired keys rate</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},expired_keys]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},expired_keys]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>/s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -801,7 +1083,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.key</name>
+                                    <name>Redis Key</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -810,31 +1092,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.expired_keys</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Keyspace hits rate</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},keyspace_hits]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_hits]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>/s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -854,7 +1158,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.key</name>
+                                    <name>Redis Key</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -863,31 +1167,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.keyspace_hits</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Keyspace misses rate</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},keyspace_misses]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_misses]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>/s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -907,7 +1233,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.key</name>
+                                    <name>Redis Key</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -916,24 +1242,46 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.keyspace_misses</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Latest fork time</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},latest_fork_usec]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},latest_fork_usec]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -960,7 +1308,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Stats</name>
+                                    <name>Redis Stats</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -969,31 +1317,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.latest_fork_usec</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>1</type>
                                     <params>0.001</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Memory fragmentation ratio</name>
+                            <name>Memory fragmentation</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},mem_fragmentation_ratio]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>%</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1013,7 +1383,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.memory</name>
+                                    <name>Redis Memory</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1022,20 +1392,46 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.mem_fragmentation_ratio</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
+                                </step>
+                                <step>
+                                    <type>1</type>
+                                    <params>100</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb bgsave in progress (rdb save是否正进行)</name>
+                            <name>RDB bgsave in progress</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},rdb_bgsave_in_progress]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_bgsave_in_progress]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -1062,34 +1458,56 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.rdb</name>
+                                    <name>Redis RDB</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.rdb_bgsave_in_progress</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb changes since last save</name>
+                            <name>RDB changes since last save</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},rdb_changes_since_last_save]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_changes_since_last_save]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -1111,7 +1529,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.rdb</name>
+                                    <name>Redis RDB</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1120,27 +1538,47 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.rdb_changes_since_last_save</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb current bgsave time sec</name>
+                            <name>RDB current bgsave time</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},rdb_current_bgsave_time_sec]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_current_bgsave_time_sec]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1160,7 +1598,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.rdb</name>
+                                    <name>Redis RDB</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1169,20 +1607,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.rdb_current_bgsave_time_sec</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb last bgsave status</name>
+                            <name>RDB last bgsave status</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},rdb_last_bgsave_status]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_last_bgsave_status]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -1209,40 +1667,64 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.rdb</name>
+                                    <name>Redis RDB</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.rdb_last_bgsave_status</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>rdb last bgsave time sec</name>
+                            <name>RDB last bgsave time</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},rdb_last_bgsave_time_sec]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_last_bgsave_time_sec]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1262,7 +1744,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.rdb</name>
+                                    <name>Redis RDB</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1271,27 +1753,47 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.rdb_last_bgsave_time_sec</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Request Rate</name>
+                            <name>Request rate</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},total_commands_processed]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_commands_processed]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>/s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1311,7 +1813,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Client</name>
+                                    <name>Redis Client</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1320,31 +1822,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.total_commands_processed</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Connection Rate</name>
+                            <name>Connection rate</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},total_connections_received]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_connections_received]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>/s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1364,7 +1888,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Client</name>
+                                    <name>Redis Client</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1373,31 +1897,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.total_connections_received</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Total net input bytes</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},total_net_input_bytes]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_net_input_bytes]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units>bytes</units>
+                            <units>Bps</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1417,7 +1963,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.NET</name>
+                                    <name>Redis Network</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1426,31 +1972,53 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.total_net_input_bytes</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Total net output bytes</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},total_net_output_bytes]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_net_output_bytes]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>0</value_type>
                             <allowed_hosts/>
-                            <units>bytes</units>
+                            <units>Bps</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1470,7 +2038,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.NET</name>
+                                    <name>Redis Network</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1479,24 +2047,46 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.total_net_output_bytes</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>10</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Used cpu sys</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},used_cpu_sys]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_sys]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -1523,7 +2113,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.CPU</name>
+                                    <name>Redis CPU</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1532,20 +2122,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.used_cpu_sys</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Used cpu sys children</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},used_cpu_sys_children]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_sys_children]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -1572,7 +2182,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.CPU</name>
+                                    <name>Redis CPU</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1581,20 +2191,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.used_cpu_sys_children</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Used cpu user</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},used_cpu_user]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_user]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -1621,7 +2251,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.CPU</name>
+                                    <name>Redis CPU</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1630,20 +2260,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.used_cpu_user</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Used cpu user children</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},used_cpu_user_children]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_user_children]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -1670,7 +2320,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.CPU</name>
+                                    <name>Redis CPU</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1679,27 +2329,47 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.used_cpu_user_children</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Used memory</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},used_memory]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_memory]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>B</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1719,7 +2389,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.memory</name>
+                                    <name>Redis Memory</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1728,27 +2398,47 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.used_memory</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Used memory rss</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT},used_memory_rss]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_memory_rss]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
-                            <value_type>0</value_type>
+                            <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>B</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1768,7 +2458,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.memory</name>
+                                    <name>Redis Memory</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -1777,20 +2467,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_info.used_memory_rss</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.info.json[{#REDIS_PORT}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>JSON Get info [ $1 ]</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.info.json[{#REDIS_PORT}]</key>
+                            <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW}]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>0</trends>
@@ -1820,22 +2530,40 @@
                             <logtimefmt/>
                             <preprocessing/>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype/>
+                            <master_item/>
                         </item_prototype>
                         <item_prototype>
-                            <name>Redis $1 PING</name>
+                            <name>Redis $1 online</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.port.ping[{#REDIS_PORT}]</key>
+                            <key>redis.port.ping[{#REDIS_PORT},{$REDIS_PW}]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units>PONG</units>
+                            <units/>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1855,20 +2583,40 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.Stats</name>
+                                    <name>Redis Stats</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing/>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype/>
+                            <master_item/>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},aof_last_bgrewrite_status].last()}=0</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_last_bgrewrite_status].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} AOF last bgrewrite fail !</name>
@@ -1877,20 +2625,20 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>最近一次AOF重写操作失败则报警</description>
+                            <description>????AOF?????????</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},aof_rewrite_scheduled].last()}=1</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_rewrite_scheduled].last()}=1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} AOF rewrite blocked by RDB SAVE !</name>
@@ -1899,20 +2647,20 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>AOF重写是否被RDB save操作阻塞则进行报警</description>
+                            <description>AOF?????RDB save?????????</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},aof_rewrite_in_progress].sum(#10)}=10</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_rewrite_in_progress].sum(#10)}=10</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} AOF rewrite in progress long time !</name>
@@ -1921,20 +2669,20 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>连续20次检测都在进行aof rewrite则进行通知,可根据监控频率进行调整</description>
+                            <description>??20???????aof rewrite?????,???????????</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},latest_fork_usec].last()}&gt;1000</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},latest_fork_usec].last()}&gt;1000</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} latest fork time is too long !</name>
@@ -1943,20 +2691,20 @@
                             <url/>
                             <status>1</status>
                             <priority>2</priority>
-                            <description>最近一次fork耗时超1s则进行报警(此值info为微秒,取值是转换为了毫秒)</description>
+                            <description>????fork???1s?????(??info???,?????????)</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},connected_clients].last(0)}/{Template App Redis for 3.4 Plus:redis.config.json[{#REDIS_PORT},maxclients].last(0)}&gt;0.8</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},connected_clients].last(0)}/{Template DB Redis:redis.config.json[{#REDIS_PORT},{$REDIS_PW},maxclients].last(0)}&gt;0.8</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} maxclients use 80% !</name>
@@ -1965,20 +2713,20 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>connected_clients超过配置的maxclients的80%则报警</description>
+                            <description>connected_clients?????maxclients?80%???</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},used_memory].last(0)}/{Template App Redis for 3.4 Plus:redis.config.json[{#REDIS_PORT},maxmemory].last(0)}&gt;0.95</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_memory].last(0)}/{Template DB Redis:redis.config.json[{#REDIS_PORT},{$REDIS_PW},maxmemory].last(0)}&gt;0.95</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} maxmemory use 95% !</name>
@@ -1987,20 +2735,20 @@
                             <url/>
                             <status>1</status>
                             <priority>2</priority>
-                            <description>used_memory超过配置的maxmemory的95%则报警</description>
+                            <description>used_memory?????maxmemory?95%???</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio].last()}&gt;2 or {Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio].last()}&lt;0.8</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},mem_fragmentation_ratio].last()}&gt;200 or {Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},mem_fragmentation_ratio].last()}&lt;80</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} mem fragmentation ratio Too high !</name>
@@ -2009,20 +2757,20 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>碎片率超过2则进行报警</description>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                            <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
@@ -2030,7 +2778,7 @@
                             <correlation_tag/>
                             <url/>
                             <status>0</status>
-                            <priority>5</priority>
+                            <priority>4</priority>
                             <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
@@ -2038,7 +2786,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.info.json[{#REDIS_PORT},rdb_last_bgsave_status].last()}=0</expression>
+                            <expression>{Template DB Redis:redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_last_bgsave_status].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT} rdb last bgsave fail !</name>
@@ -2047,13 +2795,13 @@
                             <url/>
                             <status>0</status>
                             <priority>2</priority>
-                            <description>最近一次bgsave操作失败则报警</description>
+                            <description>????bgsave???????</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies>
                                 <dependency>
                                     <name>{HOST.NAME} Redis {#REDIS_PORT} PING fail !</name>
-                                    <expression>{Template App Redis for 3.4 Plus:redis.port.ping[{#REDIS_PORT}].sum(#3)}=0</expression>
+                                    <expression>{Template DB Redis:redis.port.ping[{#REDIS_PORT},{$REDIS_PW}].sum(#3)}=0</expression>
                                     <recovery_expression/>
                                 </dependency>
                             </dependencies>
@@ -2062,7 +2810,7 @@
                     </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port Aof rewrite status</name>
+                            <name>Redis {#REDIS_PORT} AOF rewrite status</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2087,8 +2835,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},aof_current_rewrite_time_sec]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_current_rewrite_time_sec]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2099,8 +2847,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},aof_enabled]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_enabled]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2111,8 +2859,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},aof_last_bgrewrite_status]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_last_bgrewrite_status]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2123,8 +2871,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},aof_last_rewrite_time_sec]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_last_rewrite_time_sec]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2135,8 +2883,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},aof_rewrite_in_progress]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_rewrite_in_progress]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2147,14 +2895,14 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},aof_rewrite_scheduled]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},aof_rewrite_scheduled]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port Connection</name>
+                            <name>Redis {#REDIS_PORT} connection</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2179,8 +2927,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},blocked_clients]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},blocked_clients]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2191,8 +2939,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},connected_clients]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},connected_clients]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2203,8 +2951,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},total_connections_received]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_connections_received]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2215,8 +2963,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},total_commands_processed]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_commands_processed]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2227,14 +2975,14 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},connected_slaves]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},connected_slaves]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port CPU</name>
+                            <name>Redis {#REDIS_PORT} CPU</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2259,8 +3007,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},used_cpu_sys]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_sys]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2271,8 +3019,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},used_cpu_sys_children]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_sys_children]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2283,8 +3031,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},used_cpu_user]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_user]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2295,14 +3043,14 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},used_cpu_user_children]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_cpu_user_children]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port Expired Evicted keys</name>
+                            <name>Redis {#REDIS_PORT} expired/evicted keys</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2327,8 +3075,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},evicted_keys]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},evicted_keys]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2339,14 +3087,14 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},expired_keys]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},expired_keys]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port Keyspace Hit</name>
+                            <name>Redis {#REDIS_PORT} keyspace hit</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2371,8 +3119,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},keyspace_hits]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_hits]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2383,8 +3131,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},keyspace_misses]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},keyspace_misses]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2395,182 +3143,14 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>keyspace_hit_percent[{#REDIS_PORT}]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>keyspace_hit_percent[{#REDIS_PORT},{$REDIS_PW}]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
                         </graph_prototype>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port Net traffic</name>
-                            <width>900</width>
-                            <height>200</height>
-                            <yaxismin>0.0000</yaxismin>
-                            <yaxismax>100.0000</yaxismax>
-                            <show_work_period>1</show_work_period>
-                            <show_triggers>1</show_triggers>
-                            <type>0</type>
-                            <show_legend>1</show_legend>
-                            <show_3d>0</show_3d>
-                            <percent_left>0.0000</percent_left>
-                            <percent_right>0.0000</percent_right>
-                            <ymin_type_1>0</ymin_type_1>
-                            <ymax_type_1>0</ymax_type_1>
-                            <ymin_item_1>0</ymin_item_1>
-                            <ymax_item_1>0</ymax_item_1>
-                            <graph_items>
-                                <graph_item>
-                                    <sortorder>0</sortorder>
-                                    <drawtype>5</drawtype>
-                                    <color>00BB00</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},total_net_input_bytes]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>5</drawtype>
-                                    <color>0000EE</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},total_net_output_bytes]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                        <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port PING and latest fork</name>
-                            <width>900</width>
-                            <height>200</height>
-                            <yaxismin>0.0000</yaxismin>
-                            <yaxismax>100.0000</yaxismax>
-                            <show_work_period>1</show_work_period>
-                            <show_triggers>1</show_triggers>
-                            <type>0</type>
-                            <show_legend>1</show_legend>
-                            <show_3d>0</show_3d>
-                            <percent_left>0.0000</percent_left>
-                            <percent_right>0.0000</percent_right>
-                            <ymin_type_1>0</ymin_type_1>
-                            <ymax_type_1>0</ymax_type_1>
-                            <ymin_item_1>0</ymin_item_1>
-                            <ymax_item_1>0</ymax_item_1>
-                            <graph_items>
-                                <graph_item>
-                                    <sortorder>0</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>1A7C11</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},latest_fork_usec]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>F63100</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.port.ping[{#REDIS_PORT}]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                        <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port rdb</name>
-                            <width>900</width>
-                            <height>200</height>
-                            <yaxismin>0.0000</yaxismin>
-                            <yaxismax>100.0000</yaxismax>
-                            <show_work_period>1</show_work_period>
-                            <show_triggers>1</show_triggers>
-                            <type>0</type>
-                            <show_legend>1</show_legend>
-                            <show_3d>0</show_3d>
-                            <percent_left>0.0000</percent_left>
-                            <percent_right>0.0000</percent_right>
-                            <ymin_type_1>0</ymin_type_1>
-                            <ymax_type_1>0</ymax_type_1>
-                            <ymin_item_1>0</ymin_item_1>
-                            <ymax_item_1>0</ymax_item_1>
-                            <graph_items>
-                                <graph_item>
-                                    <sortorder>0</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>1A7C11</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},rdb_bgsave_in_progress]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>1</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>F63100</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},rdb_changes_since_last_save]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>2</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>2774A4</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},rdb_current_bgsave_time_sec]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>3</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>A54F10</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},rdb_last_bgsave_status]</key>
-                                    </item>
-                                </graph_item>
-                                <graph_item>
-                                    <sortorder>4</sortorder>
-                                    <drawtype>0</drawtype>
-                                    <color>EE00EE</color>
-                                    <yaxisside>0</yaxisside>
-                                    <calc_fnc>2</calc_fnc>
-                                    <type>0</type>
-                                    <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},rdb_last_bgsave_time_sec]</key>
-                                    </item>
-                                </graph_item>
-                            </graph_items>
-                        </graph_prototype>
-                        <graph_prototype>
-                            <name>Redis {#REDIS_PORT} Port Used Memory</name>
+                            <name>Redis {#REDIS_PORT} memory</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2595,8 +3175,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.config.json[{#REDIS_PORT},maxmemory]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.config.json[{#REDIS_PORT},{$REDIS_PW},maxmemory]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2607,8 +3187,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},used_memory]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_memory]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2619,8 +3199,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},used_memory_rss]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},used_memory_rss]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2631,8 +3211,176 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.info.json[{#REDIS_PORT},mem_fragmentation_ratio]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},mem_fragmentation_ratio]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Redis {#REDIS_PORT} net traffic</name>
+                            <width>900</width>
+                            <height>200</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>5</drawtype>
+                                    <color>00BB00</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_net_input_bytes]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>5</drawtype>
+                                    <color>0000EE</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},total_net_output_bytes]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Redis {#REDIS_PORT} PING and latest fork</name>
+                            <width>900</width>
+                            <height>200</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>1A7C11</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},latest_fork_usec]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>F63100</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.port.ping[{#REDIS_PORT},{$REDIS_PW}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                        <graph_prototype>
+                            <name>Redis {#REDIS_PORT} RDB</name>
+                            <width>900</width>
+                            <height>200</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>1A7C11</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_bgsave_in_progress]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>F63100</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_changes_since_last_save]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>2</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>2774A4</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_current_bgsave_time_sec]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>3</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>A54F10</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_last_bgsave_status]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>4</sortorder>
+                                    <drawtype>0</drawtype>
+                                    <color>EE00EE</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.info.json[{#REDIS_PORT},{$REDIS_PW},rdb_last_bgsave_time_sec]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -2640,13 +3388,33 @@
                     </graph_prototypes>
                     <host_prototypes/>
                     <jmx_endpoint/>
+                    <timeout>3s</timeout>
+                    <url/>
+                    <query_fields/>
+                    <posts/>
+                    <status_codes>200</status_codes>
+                    <follow_redirects>1</follow_redirects>
+                    <post_type>0</post_type>
+                    <http_proxy/>
+                    <headers/>
+                    <retrieve_mode>0</retrieve_mode>
+                    <request_method>0</request_method>
+                    <allow_traps>0</allow_traps>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
                 <discovery_rule>
-                    <name>Redis Discovery for slave Port</name>
+                    <name>Redis slave discovery</name>
                     <type>0</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>redis.repl.discovery</key>
+                    <key>redis.repl.discovery[{$REDIS_PW}]</key>
                     <delay>1m</delay>
                     <status>0</status>
                     <allowed_hosts/>
@@ -2685,14 +3453,14 @@
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_last_io_seconds_ago]</key>
+                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_last_io_seconds_ago]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units/>
+                            <units>s</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -2712,7 +3480,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.slave</name>
+                                    <name>Redis Slave</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -2721,20 +3489,40 @@
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_slaveinfo.master_last_io_seconds_ago</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>Master link status (1为up,0为down)</name>
+                            <name>Master link up</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_link_status]</key>
+                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_link_status]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -2761,33 +3549,57 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.slave</name>
+                                    <name>Redis Slave</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_slaveinfo.master_link_status</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                                 <step>
                                     <type>6</type>
                                     <params/>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Master sync in progress</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_sync_in_progress]</key>
+                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_sync_in_progress]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -2814,29 +3626,51 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.slave</name>
+                                    <name>Redis Slave</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_slaveinfo.master_sync_in_progress</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>Slave read only</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},slave_read_only]</key>
+                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},slave_read_only]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -2863,29 +3697,51 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.slave</name>
+                                    <name>Redis Slave</name>
                                 </application>
                             </applications>
-                            <valuemap/>
+                            <valuemap>
+                                <name>0:No, 1:Yes</name>
+                            </valuemap>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
                                     <type>12</type>
                                     <params>$.redis_slaveinfo.slave_read_only</params>
+                                    <error_handler>0</error_handler>
+                                    <error_handler_params/>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype>
-                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE}]</key>
-                            </master_item_prototype>
+                            <master_item>
+                                <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW}]</key>
+                            </master_item>
                         </item_prototype>
                         <item_prototype>
                             <name>JSON Get slave info [ $1 ]</name>
                             <type>0</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE}]</key>
+                            <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW}]</key>
                             <delay>30s</delay>
                             <history>90d</history>
                             <trends>0</trends>
@@ -2912,20 +3768,38 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>APP.Redis.slave</name>
+                                    <name>Redis Slave</name>
                                 </application>
                             </applications>
                             <valuemap/>
                             <logtimefmt/>
                             <preprocessing/>
                             <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
                             <application_prototypes/>
-                            <master_item_prototype/>
+                            <master_item/>
                         </item_prototype>
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template App Redis for 3.4 Plus:redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_link_status].last()}&lt;&gt;1</expression>
+                            <expression>{Template DB Redis:redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_link_status].last()}&lt;&gt;1</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>{HOST.NAME} Redis {#REDIS_PORT_SLAVE} master link down !</name>
@@ -2943,7 +3817,7 @@
                     </trigger_prototypes>
                     <graph_prototypes>
                         <graph_prototype>
-                            <name>Redis {#REDIS_PORT_SLAVE} Port Slave status</name>
+                            <name>Redis {#REDIS_PORT_SLAVE} slave status</name>
                             <width>900</width>
                             <height>200</height>
                             <yaxismin>0.0000</yaxismin>
@@ -2968,8 +3842,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_last_io_seconds_ago]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_last_io_seconds_ago]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2980,8 +3854,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_link_status]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_link_status]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -2992,8 +3866,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},master_sync_in_progress]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},master_sync_in_progress]</key>
                                     </item>
                                 </graph_item>
                                 <graph_item>
@@ -3004,8 +3878,8 @@
                                     <calc_fnc>2</calc_fnc>
                                     <type>0</type>
                                     <item>
-                                        <host>Template App Redis for 3.4 Plus</host>
-                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},slave_read_only]</key>
+                                        <host>Template DB Redis</host>
+                                        <key>redis.slaveinfo.json[{#REDIS_PORT_SLAVE},{$REDIS_PW},slave_read_only]</key>
                                     </item>
                                 </graph_item>
                             </graph_items>
@@ -3013,12 +3887,48 @@
                     </graph_prototypes>
                     <host_prototypes/>
                     <jmx_endpoint/>
+                    <timeout>3s</timeout>
+                    <url/>
+                    <query_fields/>
+                    <posts/>
+                    <status_codes>200</status_codes>
+                    <follow_redirects>1</follow_redirects>
+                    <post_type>0</post_type>
+                    <http_proxy/>
+                    <headers/>
+                    <retrieve_mode>0</retrieve_mode>
+                    <request_method>0</request_method>
+                    <allow_traps>0</allow_traps>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                    <lld_macro_paths/>
+                    <preprocessing/>
+                    <master_item/>
                 </discovery_rule>
             </discovery_rules>
             <httptests/>
             <macros/>
             <templates/>
             <screens/>
+            <tags/>
         </template>
     </templates>
+    <value_maps>
+        <value_map>
+            <name>0:No, 1:Yes</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>No</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Yes</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
 </zabbix_export>
