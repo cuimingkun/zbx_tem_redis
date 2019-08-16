@@ -19,7 +19,7 @@
             </groups>
             <applications>
                 <application>
-                    <name>APP.Redis.AOF</name>
+                    <name>APP.Redis.aof</name>
                 </application>
                 <application>
                     <name>APP.Redis.Client</name>
